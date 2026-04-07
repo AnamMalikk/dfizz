@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DFIZZ Energy Drink – Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Metal+Mania&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #e0000e;
+      --red-glow: #ff1a28;
+      --darker: #030303;
+      --silver: #b0b0b0;
+      --white: #f5f5f5;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: var(--darker);
+      color: var(--white);
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+    }
+
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 60%, rgba(200, 0, 10, 0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 40% at 50% 90%, rgba(140, 0, 5, 0.12) 0%, transparent 60%),
+        var(--darker);
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px 60px;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 0;
+      opacity: 0;
+      animation: fadeDown .8s .2s forwards;
+    }
+
+    /* Logo image in topbar */
+    .topbar-logo img {
+      height: clamp(94px, 50vw, 104px);
+      filter: drop-shadow(0 0 12px rgba(220, 0, 14, .5));
+    }
+
+    .topbar-tag {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(.82rem, 2.4vw, 1rem);
+      letter-spacing: 4px;
+      color: var(--red);
+      border: 1px solid rgba(220, 0, 14, .4);
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      text-align: center;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    /* ── HEADLINE ── */
+    .headline-wrap {
+      position: relative;
+      opacity: 0;
+      animation: fadeUp .9s .4s forwards;
+    }
+
+    .headline-pre {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(.62rem, 1.8vw, .88rem);
+      font-weight: 700;
+      letter-spacing: 8px;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* Metal Mania - heavy metal / gothic slab - aggressive and dark */
+    .headline {
+      font-family: 'Metal Mania', cursive;
+      font-size: clamp(2.6rem, 8.5vw, 7rem);
+      line-height: 1.0;
+      letter-spacing: 3px;
+      background: linear-gradient(160deg, #ffffff 10%, #cccccc 50%, #e0000e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(220, 0, 14, .45));
+    }
+
+    .headline span {
+      -webkit-text-fill-color: var(--red);
+      color: var(--red);
+    }
+
+    .dragon-eyes {
+      width: 100%;
+      max-width: 420px;
+      margin: 10px auto 20px;
+      display: block;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 25px rgba(220, 0, 14, 2.5));
+    }
+
+    .dragon-eyes {
+      animation: glowEyes 2s ease-in-out infinite alternate;
+    }
+    
+
+    /* ── CAN SCENE ── */
+    .can-scene {
+      position: relative;
+      width: clamp(190px, 40vw, 350px);
+      margin: 18px 0;
+      opacity: 0;
+      animation: canReveal 1.2s .6s cubic-bezier(.22, 1, .36, 1) forwards;
+    }
+
+    .can-scene img {
+      width: 100%;
+      filter: drop-shadow(0 0 40px rgba(220, 0, 14, .75));
+      animation: canFloat 4s ease-in-out infinite;
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(220, 0, 14, .25);
+      animation: spin linear infinite;
+      pointer-events: none;
+    }
+
+    .ring-1 {
+      width: 110%;
+      height: 110%;
+      top: -5%;
+      left: -5%;
+      animation-duration: 9s;
+    }
+
+    .ring-2 {
+      width: 130%;
+      height: 130%;
+      top: -15%;
+      left: -15%;
+      animation-duration: 14s;
+      animation-direction: reverse;
+      border-color: rgba(220, 0, 14, .20);
+      border-style: dashed;
+    }
+
+    .ring-3 {
+      width: 150%;
+      height: 150%;
+      top: -25%;
+      left: -25%;
+      animation-duration: 20s;
+      border-color: rgba(220, 0, 14, .20);
+    }
+
+    .ground-glow {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 28px;
+      background: radial-gradient(ellipse, rgba(220, 0, 14, .65) 0%, transparent 70%);
+      filter: blur(8px);
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    /* ── TAGLINE ── */
+    .tagline {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(1rem, 3.5vw, 2rem);
+      letter-spacing: 6px;
+      color: var(--silver);
+      margin-bottom: 6px;
+      opacity: 0;
+      animation: fadeUp .8s .9s forwards;
+    }
+
+    .tagline-sub {
+      font-size: clamp(.68rem, 1.9vw, .9rem);
+      letter-spacing: 3px;
+      color: rgba(255, 255, 255, .4);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp .8s 1.05s forwards;
+    }
+
+    .divider {
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      margin: 24px auto;
+      opacity: 0;
+      animation: fadeIn .8s 1.1s forwards;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .7rem;
+      letter-spacing: 5px;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp .8s 1.2s forwards;
+    }
+
+    .countdown {
+      display: flex;
+      gap: clamp(8px, 2.5vw, 26px);
+      margin-bottom: 34px;
+      opacity: 0;
+      animation: fadeUp .9s 1.3s forwards;
+    }
+
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cd-box {
+      position: relative;
+      width: clamp(54px, 13vw, 88px);
+      height: clamp(54px, 13vw, 88px);
+      background: rgba(10, 10, 10, .9);
+      border: 1px solid rgba(220, 0, 14, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .cd-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(220, 0, 14, .08) 0%, transparent 60%);
+    }
+
+    .cd-box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(220, 0, 14, .6), transparent);
+      animation: scanLine 3s linear infinite;
+    }
+
+    .cd-num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(1.6rem, 4.5vw, 2.9rem);
+      color: var(--white);
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(220, 0, 14, .4);
+      position: relative;
+      z-index: 1;
+      transition: transform .15s;
+    }
+
+    .cd-num.flip {
+      transform: scaleY(0);
+    }
+
+    .cd-sep {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+      color: var(--red);
+      align-self: flex-start;
+      margin-top: 8px;
+      opacity: .6;
+    }
+
+    .cd-label {
+      font-size: clamp(.48rem, 1.4vw, .6rem);
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .35);
+      text-transform: uppercase;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      display: flex;
+      gap: clamp(10px, 2.5vw, 22px);
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 38px;
+      opacity: 0;
+      animation: fadeUp .8s 1.5s forwards;
+      padding: 0 10px;
+    }
+
+    .feat {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: clamp(.62rem, 1.7vw, .75rem);
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .5);
+      text-transform: uppercase;
+    }
+
+    .feat-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+      flex-shrink: 0;
+    }
+
+    /* ── EMAIL FORM ── */
+    .notify-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .7rem;
+      letter-spacing: 5px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .4);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp .8s 1.6s forwards;
+    }
+
+    .email-form {
+      display: flex;
+      width: 100%;
+      max-width: 460px;
+      opacity: 0;
+      animation: fadeUp .9s 1.7s forwards;
+      position: relative;
+    }
+
+    .email-form input {
+      flex: 1;
+      min-width: 0;
+      background: rgba(15, 15, 15, .95);
+      border: 1px solid rgba(220, 0, 14, .35);
+      border-right: none;
+      color: var(--white);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(.78rem, 2.3vw, .9rem);
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 13px 14px;
+      outline: none;
+      transition: border-color .3s;
+    }
+
+    .email-form input::placeholder {
+      color: rgba(255, 255, 255, .25);
+    }
+
+    .email-form input:focus {
+      border-color: rgba(220, 0, 14, .8);
+    }
+
+    .email-form button {
+      background: var(--red);
+      border: 1px solid var(--red);
+      color: var(--white);
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(.88rem, 2.3vw, 1.05rem);
+      letter-spacing: 3px;
+      padding: 13px clamp(12px, 3.5vw, 26px);
+      cursor: pointer;
+      transition: background .25s, box-shadow .25s, transform .1s;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .email-form button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 30%;
+      height: 200%;
+      background: rgba(255, 255, 255, .18);
+      transform: skewX(-20deg);
+      transition: left .4s;
+    }
+
+    .email-form button:hover::before {
+      left: 130%;
+    }
+
+    .email-form button:hover {
+      background: #ff0010;
+      box-shadow: 0 0 30px rgba(220, 0, 14, .5);
+    }
+
+    .email-form button:active {
+      transform: scale(.97);
+    }
+
+    .success-msg {
+      display: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .85rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: var(--red);
+      margin-top: 14px;
+      animation: fadeUp .5s forwards;
+    }
+
+    /* ── SOCIAL ── */
+    .social-strip {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 36px;
+      opacity: 0;
+      animation: fadeIn 1s 2s forwards;
+    }
+
+    .social-link {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(220, 0, 14, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: rgba(255, 255, 255, .5);
+      border-radius: 2px;
+      transition: border-color .25s, color .25s, box-shadow .25s, background .25s;
+    }
+
+    .social-link:hover {
+      border-color: var(--red);
+      color: var(--white);
+      box-shadow: 0 0 18px rgba(220, 0, 14, .45);
+      background: rgba(220, 0, 14, .08);
+    }
+
+    /* ── BOTTOM BAR ── */
+    .bottom-bar {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, .05);
+      opacity: 0;
+      animation: fadeIn 1s 2.2s forwards;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .bottom-bar .copy {
+      font-size: .62rem;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, .2);
+      text-transform: uppercase;
+    }
+
+    .bottom-bar .edition {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1rem;
+      color: rgba(220, 0, 14, .55);
+      letter-spacing: 4px;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    /* ── LIGHTNING BOLTS ── */
+    .bolt-left,
+    .bolt-right {
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      width: 100px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: .06;
+    }
+
+    .bolt-left {
+      left: 0;
+    }
+
+    .bolt-right {
+      right: 0;
+    }
+
+    /* ── KEYFRAMES ── */
+
+
+
+    @keyframes glowEyes {
+      from {
+        opacity: 0.6;
+      }
+
+      to {
+        opacity: 1;
+        filter: drop-shadow(0 0 40px rgba(220, 0, 14, 1));
+      }
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    @keyframes canReveal {
+      from {
+        opacity: 0;
+        transform: scale(.8) translateY(30px)
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0)
+      }
+    }
+
+    @keyframes canFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-.5deg)
+      }
+
+      50% {
+        transform: translateY(-14px) rotate(.5deg)
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        opacity: .7;
+        transform: translateX(-50%) scaleX(1)
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1.18)
+      }
+    }
+
+    @keyframes scanLine {
+      0% {
+        left: -100%
+      }
+
+      100% {
+        left: 200%
+      }
+    }
+
+    @keyframes sparkle {
+      0% {
+        opacity: 0;
+        transform: scale(0) translateY(0)
+      }
+
+      40% {
+        opacity: 1;
+        transform: scale(1) translateY(-20px)
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(.5) translateY(-50px)
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px) {
+      .wrapper {
+        padding: 0 16px 48px;
+      }
+
+      .topbar {
+        padding: 18px 0 0;
+      }
+
+      .bolt-left,
+      .bolt-right {
+        display: none;
+      }
+
+      .can-scene {
+        width: clamp(170px, 52vw, 290px);
+      }
+
+      .bottom-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .bottom-bar .edition {
+        margin-left: 0;
+        text-align: center;
+      }
+
+      .email-form {
+        max-width: 100%;
+      }
+
+      .ring-3 {
+        display: none;
+      }
+    }
+
+    @media(max-width:480px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .headline {
+        font-size: clamp(2.2rem, 12vw, 3.6rem);
+        letter-spacing: 2px;
+      }
+
+      .headline-pre {
+        letter-spacing: 5px;
+        font-size: .62rem;
+      }
+
+      .can-scene {
+        width: clamp(155px, 60vw, 250px);
+      }
+
+      .tagline {
+        letter-spacing: 4px;
+      }
+
+      .cd-sep {
+        font-size: 1.3rem;
+        margin-top: 10px;
+      }
+
+      .cd-box {
+        width: clamp(46px, 16.5vw, 70px);
+        height: clamp(46px, 16.5vw, 70px);
+      }
+
+      .cd-num {
+        font-size: clamp(1.4rem, 5.5vw, 2.1rem);
+      }
+
+      .countdown {
+        gap: clamp(4px, 1.5vw, 10px);
+      }
+
+      .feat {
+        font-size: .6rem;
+        letter-spacing: 1px;
+      }
+
+      .social-link {
+        width: 38px;
+        height: 38px;
+      }
+
+      .social-strip {
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .bottom-bar {
+        margin-top: 32px;
+      }
+
+      .divider {
+        width: 130px;
+      }
+
+      .ring-2,
+      .ring-3 {
+        display: none;
+      }
+    }
+
+    @media(max-width:360px) {
+      .headline {
+        font-size: 2rem;
+      }
+
+      .cd-box {
+        width: 42px;
+        height: 42px;
+      }
+
+      .cd-num {
+        font-size: 1.3rem;
+      }
+
+      .cd-sep {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="particles"></canvas>
+  <div class="bg-glow"></div>
+
+  <svg class="bolt-left" viewBox="0 0 120 900" preserveAspectRatio="none" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <polyline points="60,0 30,300 70,300 20,600 80,600 10,900" stroke="#e0000e" stroke-width="3" fill="none" />
+  </svg>
+  <svg class="bolt-right" viewBox="0 0 120 900" preserveAspectRatio="none" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <polyline points="60,0 90,300 50,300 100,600 40,600 110,900" stroke="#e0000e" stroke-width="3" fill="none" />
+  </svg>
+
+  <div class="wrapper">
+
+    <div class="topbar">
+      <div class="topbar-logo">
+        <img id="logoImg" src="image/logoImg.PNG" alt="DFIZZ Energy Drink Logo">
+      </div>
+      <div class="topbar-tag">Premium Edition &middot; 250ml</div>
+    </div>
+
+    <div class="hero">
+
+      <div class="headline-wrap">
+        <div class="headline-pre">Unleash the Beast</div>
+
+        <img src="image/eyesImg.png" class="dragon-eyes" alt="dragon eyes">
+
+        <div class="headline">The <span>Dragon</span> Rises</div>
+      </div>
+
+      <div class="can-scene">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <img id="canImg" src="image/canImg.png" alt="DFIZZ Premium Energy Drink Can">
+        <div class="ground-glow"></div>
+      </div>
+
+      <div class="tagline">Power &middot; Taurine &middot; Vitamins</div>
+      <div class="tagline-sub">Premium Energy &middot; Unleashed</div>
+      <div class="divider"></div>
+
+      <div class="countdown-label">Launching In</div>
+      <div class="countdown">
+        <div class="cd-unit">
+          <div class="cd-box"><span class="cd-num" id="cd-d">00</span></div>
+          <div class="cd-label">Days</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-box"><span class="cd-num" id="cd-h">00</span></div>
+          <div class="cd-label">Hours</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-box"><span class="cd-num" id="cd-m">00</span></div>
+          <div class="cd-label">Mins</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-box"><span class="cd-num" id="cd-s">00</span></div>
+          <div class="cd-label">Secs</div>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feat">
+          <div class="feat-dot"></div>High Caffeine
+        </div>
+        <div class="feat">
+          <div class="feat-dot"></div>Taurine Boost
+        </div>
+        <div class="feat">
+          <div class="feat-dot"></div>B-Vitamins
+        </div>
+        <div class="feat">
+          <div class="feat-dot"></div>Zero Sugar Option
+        </div>
+        <div class="feat">
+          <div class="feat-dot"></div>Premium Edition
+        </div>
+      </div>
+
+      <div class="notify-label">Be first to know &ndash; get notified</div>
+      <div class="email-form">
+        <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="off">
+        <button onclick="handleNotify()">Notify Me</button>
+      </div>
+      <div class="success-msg" id="successMsg">&#128293; You&apos;re on the list. Get ready.</div>
+
+      <div class="social-strip">
+        <a class="social-link" href="https://www.instagram.com/dfizzbeverages?igsh=a2Mxd2cwaXBrOThn" target="_blank"
+          title="Instagram">
+          <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+          </svg>
+        </a>
+        <a class="social-link" href="https://www.facebook.com/share/1Hia7UQAXt/?mibextid=wwXIfr" target="_blank"
+          title="Facebook">
+          <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.885v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
+          </svg>
+        </a>
+        <a class="social-link" href="https://wa.me/9873094059?text=I%20am%20interested%20in%20DFIZZ" target="_blank"
+          rel="noopener noreferrer" title="WhatsApp">
+          <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="bottom-bar">
+        <span class="copy">&copy; 2026 DFIZZ Energy &middot; All rights reserved</span>
+        <span class="edition">Premium Edition</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+
+    
+(function () {
+
+  // ✅ SET YOUR LAUNCH DATE HERE (IMPORTANT)
+  var launch = new Date("May 2, 2026 00:00:00").getTime();
+
+  var els = {
+    d: document.getElementById('cd-d'),
+    h: document.getElementById('cd-h'),
+    m: document.getElementById('cd-m'),
+    s: document.getElementById('cd-s')
+  };
+
+  function pad(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  function flip(el, v) {
+    if (el.textContent === v) return;
+    el.classList.add('flip');
+    setTimeout(function () {
+      el.textContent = v;
+      el.classList.remove('flip');
+    }, 150);
+  }
+
+  function tick() {
+    var now = new Date().getTime();
+    var diff = launch - now;
+
+    if (diff <= 0) {
+      els.d.textContent = "00";
+      els.h.textContent = "00";
+      els.m.textContent = "00";
+      els.s.textContent = "00";
+      return;
+    }
+
+    var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    var secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    flip(els.d, pad(days));
+    flip(els.h, pad(hours));
+    flip(els.m, pad(mins));
+    flip(els.s, pad(secs));
+  }
+
+  tick();
+  setInterval(tick, 1000);
+
+})();
+
+    function handleNotify() {
+      var email = document.getElementById('emailInput').value.trim();
+
+      if (!email) {
+        alert("Please enter email");
+        return;
+      }
+
+      fetch("https://docs.google.com/forms/u/0/d/e/1FAIpQLSfYZJpGIG67WetGs9ZDqE9IR2Nd5IxhCR0OozHJk-fdW57XCw/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "entry.1456918922=" + encodeURIComponent(email)
+      });
+
+      document.querySelector('.email-form').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }
+    function spawnSparks() {
+      var form = document.querySelector('.email-form');
+      var rect = form.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      for (var i = 0; i < 18; i++) {
+        var spark = document.createElement('div');
+        var angle = Math.random() * 360, dist = 40 + Math.random() * 80, size = 3 + Math.random() * 5;
+        spark.style.cssText = 'position:fixed;width:' + size + 'px;height:' + size + 'px;background:#e0000e;border-radius:50%;left:' + cx + 'px;top:' + (rect.top + rect.height / 2) + 'px;pointer-events:none;z-index:9999;box-shadow:0 0 6px #e0000e;animation:sparkle .8s ' + (Math.random() * 200) + 'ms forwards;';
+        document.body.appendChild(spark); setTimeout(function () { spark.remove(); }, 1200);
+      }
+    }
+
+    (function () {
+      var canvas = document.getElementById('particles');
+      var ctx = canvas.getContext('2d');
+      var W, H, particles = [];
+      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+      resize(); window.addEventListener('resize', function () { resize(); init(); });
+      function Particle() { this.reset(true); }
+      Particle.prototype.reset = function (init) {
+        this.x = Math.random() * W; this.y = init ? Math.random() * H : H + 10;
+        this.vy = -(0.3 + Math.random() * 0.9); this.vx = (Math.random() - .5) * .4;
+        this.r = .6 + Math.random() * 1.6; this.a = Math.random() * .45;
+        this.life = 0; this.maxLife = 200 + Math.random() * 300; this.red = Math.random() < .25;
+      };
+      Particle.prototype.update = function () { this.x += this.vx; this.y += this.vy; this.life++; if (this.life > this.maxLife || this.y < -10) this.reset(false); };
+      Particle.prototype.draw = function () {
+        var t = this.life / this.maxLife, opc = this.a * (t < .1 ? t / .1 : t > .8 ? (1 - t) / .2 : 1);
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = this.red ? 'rgba(220,0,14,' + opc + ')' : 'rgba(180,180,180,' + (opc * .6) + ')'; ctx.fill();
+      };
+      function init() { particles = []; for (var i = 0; i < 120; i++)particles.push(new Particle()); }
+      function loop() { ctx.clearRect(0, 0, W, H); particles.forEach(function (p) { p.update(); p.draw(); }); requestAnimationFrame(loop); }
+      init(); loop();
+    })();
+
+    (function () {
+      if (window.matchMedia('(pointer:coarse)').matches) return;
+      var dot = document.createElement('div');
+      dot.style.cssText = 'width:12px;height:12px;background:rgba(220,0,14,.7);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px rgba(220,0,14,.8);mix-blend-mode:screen;';
+      document.body.appendChild(dot);
+      window.addEventListener('mousemove', function (e) { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; });
+    })();
+  </script>
+</body>
+
+</html>
