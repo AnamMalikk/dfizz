@@ -1777,8 +1777,8 @@
       }
 
       .ring-3 {
-  display: block !important;
-}
+        display: block !important;
+      }
 
       .about-grid {
         grid-template-columns: 1fr;
@@ -2056,7 +2056,7 @@
 
       <div class="features">
         <div class="feat">
-          <div class="feat-dot"></div>High Caffeine
+          <div class="feat-dot"></div>Balanced Caffeine
         </div>
         <div class="feat">
           <div class="feat-dot"></div>Taurine Boost
@@ -2065,7 +2065,7 @@
           <div class="feat-dot"></div>B-Vitamins
         </div>
         <div class="feat">
-          <div class="feat-dot"></div>Zero Sugar Option
+          <div class="feat-dot"></div>Low Sugar Option
         </div>
         <div class="feat">
           <div class="feat-dot"></div>Premium Edition
@@ -2114,11 +2114,11 @@
               B-vitamins, and premium quality ingredients. Every sip is fuel for your ambition.</p>
             <div class="about-stats">
               <div class="stat-card">
-                <div class="stat-num">160<span style="color:var(--white);font-size:1.2rem">mg</span></div>
+                <div class="stat-num">80<span style="color:var(--white);font-size:1.2rem">mg</span></div>
                 <div class="stat-desc">Caffeine</div>
               </div>
               <div class="stat-card">
-                <div class="stat-num">1000<span style="color:var(--white);font-size:1.2rem">mg</span></div>
+                <div class="stat-num">812<span style="color:var(--white);font-size:1.2rem">mg</span></div>
                 <div class="stat-desc">Taurine</div>
               </div>
               <div class="stat-card">
@@ -2126,7 +2126,7 @@
                 <div class="stat-desc">Volume</div>
               </div>
               <div class="stat-card">
-                <div class="stat-num">6<span style="color:var(--white);font-size:1.2rem">x</span></div>
+                <div class="stat-num">3<span style="color:var(--white);font-size:1.2rem">x</span></div>
                 <div class="stat-desc">B-Vitamins</div>
               </div>
             </div>
@@ -2134,18 +2134,18 @@
           <div class="about-ingredients reveal-right">
             <div class="ing-card">
               <div class="ing-icon">⚡</div>
-              <div class="ing-name">High Caffeine</div>
-              <div class="ing-desc">160mg of pure energy to ignite your focus and drive through the day</div>
+              <div class="ing-name">Balanced Caffeine</div>
+              <div class="ing-desc">80mg of pure energy to ignite your focus and drive through the day</div>
             </div>
             <div class="ing-card">
               <div class="ing-icon">🐉</div>
               <div class="ing-name">Taurine</div>
-              <div class="ing-desc">1000mg taurine for enhanced endurance and peak athletic performance</div>
+              <div class="ing-desc">812mg taurine for enhanced endurance and peak athletic performance</div>
             </div>
             <div class="ing-card">
               <div class="ing-icon">💊</div>
               <div class="ing-name">B-Vitamins</div>
-              <div class="ing-desc">6 essential B-vitamins including B3, B6, and B12 for sustained energy</div>
+              <div class="ing-desc">3 essential B-vitamins including B3, B6, and B12 for sustained energy</div>
             </div>
             <div class="ing-card">
               <div class="ing-icon">🔥</div>
@@ -2176,11 +2176,14 @@
             <p class="product-desc">Unleash the beast within. DFIZZ is crafted for warriors who demand more — more
               focus, more endurance, more power. One can. Zero compromises.</p>
             <div class="product-price">
-              <span class="price-amt">₹60</span>
-              <span class="price-label">per can</span>
+              <div class="product-price">
+                <span style="text-decoration:line-through;opacity:.5;font-size:1.5rem;">₹1440</span>
+                <span class="price-amt">₹1100</span>
+                <span class="price-label">24 Can Pack</span>
+              </div>
             </div>
             <div class="qty-wrap">
-              <span class="qty-label">Qty</span>
+              <span class="qty-label">Packs</span>
               <button class="qty-btn" onclick="changeQty(-1)">−</button>
               <div class="qty-num" id="productQty">1</div>
               <button class="qty-btn" onclick="changeQty(1)">+</button>
@@ -2233,10 +2236,7 @@
               <div class="dist-benefit-icon">▶</div>
               <p>Priority access to new product launches</p>
             </div>
-            <div class="dist-benefit">
-              <div class="dist-benefit-icon">▶</div>
-              <p>Dedicated account manager and after-sales support</p>
-            </div>
+
           </div>
           <div class="dist-form reveal-right">
             <div class="form-row">
@@ -2473,102 +2473,104 @@
 
     function addToCart() {
       var existing = cart.findIndex(function (i) { return i.id === 'dfizz-250ml'; });
-      if (existing >= 0) { cart[existing].qty += productQty; } else { cart.push({ id: 'dfizz-250ml', name: 'DFIZZ Energy Drink 250ml', price: 50, qty: productQty }); }
+      if (existing >= 0) { cart[existing].qty += productQty; } 
+      else {
+        cart.push({ id: 'dfizz-250ml', name: 'DFIZZ Energy Drink - Pack of 24', price: 1100, qty: productQty }); }
       saveCart();
-      showToast('🔥 ' + productQty + ' can' + (productQty > 1 ? 's' : '') + ' added to cart!');
-      openCart();
-    }
-
-    function cartChangeQty(idx, d) {
-      cart[idx].qty += d;
-      if (cart[idx].qty <= 0) cart.splice(idx, 1);
-      saveCart();
-    }
-    function cartRemove(idx) { cart.splice(idx, 1); saveCart(); }
-    function clearCart() { cart = []; saveCart(); showToast('Cart cleared'); }
-
-    function openCart() {
-      document.getElementById('cartOverlay').classList.add('open');
-      document.getElementById('cartDrawer').classList.add('open');
-      renderCartItems();
-    }
-    function closeCart() {
-      document.getElementById('cartOverlay').classList.remove('open');
-      document.getElementById('cartDrawer').classList.remove('open');
-    }
-
-    /* ── WHATSAPP ── */
-    function buildWAMsg(qty, total) {
-      return encodeURIComponent('Hi, I would like to order ' + qty + ' can' + (qty > 1 ? 's' : '') + ' of DFIZZ Energy Drink. Total: ₹' + total + '. Please share delivery details.');
-    }
-    function buyWhatsApp() {
-      var qty = productQty, total = qty * 50;
-      window.open('https://wa.me/919873094059?text=' + buildWAMsg(qty, total), '_blank');
-    }
-    function orderWhatsApp() {
-      if (!cart.length) { showToast('Your cart is empty'); return; }
-      var totalQty = cart.reduce(function (s, i) { return s + i.qty; }, 0);
-      var totalAmt = cart.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
-      window.open('https://wa.me/919873094059?text=' + buildWAMsg(totalQty, totalAmt), '_blank');
-    }
-
-    /* ── DISTRIBUTOR FORM ── */
-    function submitDistributor() {
-      var name = document.getElementById('distName').value.trim();
-      var email = document.getElementById('distEmail').value.trim();
-      var phone = document.getElementById('distPhone').value.trim();
-      var city = document.getElementById('distCity').value.trim();
-      var biz = document.getElementById('distBusiness').value;
-      var msg = document.getElementById('distMsg').value.trim();
-
-      // Validation
-      if (!name || !email || !phone || !city || !biz) {
-        showToast('Please fill all required fields');
-        return;
+        showToast('🔥 ' + productQty + ' pack' + (productQty > 1 ? 's' : '') + ' added to cart!');
+        openCart();
       }
 
-      if (!/\S+@\S+\.\S+/.test(email)) {
-        showToast('Please enter a valid email');
-        return;
+      function cartChangeQty(idx, d) {
+        cart[idx].qty += d;
+        if (cart[idx].qty <= 0) cart.splice(idx, 1);
+        saveCart();
+      }
+      function cartRemove(idx) { cart.splice(idx, 1); saveCart(); }
+      function clearCart() { cart = []; saveCart(); showToast('Cart cleared'); }
+
+      function openCart() {
+        document.getElementById('cartOverlay').classList.add('open');
+        document.getElementById('cartDrawer').classList.add('open');
+        renderCartItems();
+      }
+      function closeCart() {
+        document.getElementById('cartOverlay').classList.remove('open');
+        document.getElementById('cartDrawer').classList.remove('open');
       }
 
-      // Show success message
-      document.getElementById('distSuccess').style.display = 'block';
-      showToast('🔥 Inquiry submitted successfully!');
+      /* ── WHATSAPP ── */
+      function buildWAMsg(qty, total) {
+        return encodeURIComponent('Hi, I would like to order ' + qty + ' pack' + (qty > 1 ? 's' : '') + ' of DFIZZ Energy Drink. Total: ₹' + total + '. Please share delivery details.');
+      }
+      function buyWhatsApp() {
+        var qty = productQty, total = qty * 1100;
+        window.open('https://wa.me/919873094059?text=' + buildWAMsg(qty, total), '_blank');
+      }
+      function orderWhatsApp() {
+        if (!cart.length) { showToast('Your cart is empty'); return; }
+        var totalQty = cart.reduce(function (s, i) { return s + i.qty; }, 0);
+        var totalAmt = cart.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
+        window.open('https://wa.me/919873094059?text=' + buildWAMsg(totalQty, totalAmt), '_blank');
+      }
 
-      // Reset form after 5 seconds
-      setTimeout(function () {
-        document.getElementById('distName').value = '';
-        document.getElementById('distEmail').value = '';
-        document.getElementById('distPhone').value = '';
-        document.getElementById('distCity').value = '';
-        document.getElementById('distBusiness').selectedIndex = 0;
-        document.getElementById('distMsg').value = '';
+      /* ── DISTRIBUTOR FORM ── */
+      function submitDistributor() {
+        var name = document.getElementById('distName').value.trim();
+        var email = document.getElementById('distEmail').value.trim();
+        var phone = document.getElementById('distPhone').value.trim();
+        var city = document.getElementById('distCity').value.trim();
+        var biz = document.getElementById('distBusiness').value;
+        var msg = document.getElementById('distMsg').value.trim();
 
-        // Hide success message
-        document.getElementById('distSuccess').style.display = 'none';
-      }, 5000);
-    }
+        // Validation
+        if (!name || !email || !phone || !city || !biz) {
+          showToast('Please fill all required fields');
+          return;
+        }
 
-    /* ── TOAST ── */
-    function showToast(msg) {
-      var container = document.getElementById('toastContainer');
-      var t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
-      container.appendChild(t);
-      requestAnimationFrame(function () { requestAnimationFrame(function () { t.classList.add('show'); }); });
-      setTimeout(function () { t.classList.remove('show'); setTimeout(function () { t.remove(); }, 400); }, 2800);
-    }
+        if (!/\S+@\S+\.\S+/.test(email)) {
+          showToast('Please enter a valid email');
+          return;
+        }
 
-    /* ── SCROLL REVEAL ── */
-    (function () {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function (el) { observer.observe(el); });
-    })();
+        // Show success message
+        document.getElementById('distSuccess').style.display = 'block';
+        showToast('🔥 Inquiry submitted successfully!');
 
-    /* ── INIT CART FROM STORAGE ── */
-    updateCartUI();
+        // Reset form after 5 seconds
+        setTimeout(function () {
+          document.getElementById('distName').value = '';
+          document.getElementById('distEmail').value = '';
+          document.getElementById('distPhone').value = '';
+          document.getElementById('distCity').value = '';
+          document.getElementById('distBusiness').selectedIndex = 0;
+          document.getElementById('distMsg').value = '';
+
+          // Hide success message
+          document.getElementById('distSuccess').style.display = 'none';
+        }, 5000);
+      }
+
+      /* ── TOAST ── */
+      function showToast(msg) {
+        var container = document.getElementById('toastContainer');
+        var t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+        container.appendChild(t);
+        requestAnimationFrame(function () { requestAnimationFrame(function () { t.classList.add('show'); }); });
+        setTimeout(function () { t.classList.remove('show'); setTimeout(function () { t.remove(); }, 400); }, 2800);
+      }
+
+      /* ── SCROLL REVEAL ── */
+      (function () {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function (el) { observer.observe(el); });
+      })();
+
+      /* ── INIT CART FROM STORAGE ── */
+      updateCartUI();
   </script>
 </body>
 
